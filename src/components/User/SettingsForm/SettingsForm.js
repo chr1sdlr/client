@@ -1,9 +1,10 @@
-import React from 'react';
-import './SettingsForm.scss';
-import { useHistory } from 'react-router-dom';
-import { useApolloClient } from '@apollo/client';
-import useAuth from '../../../hooks/useAuth';
-import { Button } from 'semantic-ui-react';
+import React from "react";
+import "./SettingsForm.scss";
+import { useHistory } from "react-router-dom";
+import { useApolloClient } from "@apollo/client";
+import PasswordForm from "../../PasswordForm";
+import useAuth from "../../../hooks/useAuth";
+import { Button } from "semantic-ui-react";
 
 export default function SettingsForm(props) {
     const { setShowModal, setTitleModal, setChildreModal } = props;
@@ -13,7 +14,7 @@ export default function SettingsForm(props) {
 
     const onChangePswd = () => {
         setTitleModal("Cambia tu contraseña");
-        setChildreModal(<div><h2>Form password</h2></div>);
+        setChildreModal(<PasswordForm />);
     };
 
     const onlogout = () => {

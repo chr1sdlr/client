@@ -1,46 +1,59 @@
 @import "../../scss/index.scss";
 
 .auth {
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 110vh;
-  background-color: $background-grey-light;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    background-color: $background-grey-light;
 
-  img {
-    width: 290px;
-    height: 100px;
-  }
-
-  .container-form {
-    width: 400px;
-    background-color: $background-light;
-    padding: 15px 20px;
-    border: 5px solid $border-grey;
-    margin-top: 3px;
-    border-radius: 25px;
-  }
-
-  .change-form {
-    margin-top: 10px;
-    width: 298px;
-    background-color: $background-light;
-    padding: 15px 10px;
-    border: 8px solid $border-grey;
-    text-align: center;
-    border-radius: 10px;
-    margin-bottom: 20px;
-
-    span {
-      color: $action;
-      font-weight: bold;
-      margin-left: 7px;
-
-      &:hover {
-        cursor: pointer;
-        text-decoration: underline;
-      }
+    img {
+        width: 290px;
+        height: 100px;
     }
-  }
+
+    .container-form {
+        position: relative;
+        top: -60px;
+        width: 400px;
+        background-color: $background-light;
+        padding: 15px 20px;
+        border: 5px solid $border-grey;
+        margin-top: 10px;
+        border-radius: 25px;
+    }
+
+    .change-form {
+        position: relative;
+        top: -60px;
+        margin-top: 10px;
+        width: 298px;
+        background-color: $background-light;
+        padding: 15px 10px;
+        border: 8px solid $border-grey;
+        text-align: center;
+        border-radius: 10px;
+        margin-bottom: 20px;
+
+        span {
+            color: $action;
+            font-weight: bold;
+            margin-left: 7px;
+
+            &:hover {
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .workbook-img {
+        position: relative;
+        top: -80px;
+        display: inline-block;
+        vertical-align: middle;
+        max-width: 100%;
+        background-color: transparent;
+    }
 }
