@@ -8,7 +8,7 @@ import useAuth from "../../../hooks/useAuth";
 import { Button } from "semantic-ui-react";
 
 export default function SettingsForm(props) {
-    const { setShowModal, setTitleModal, setChildreModal } = props;
+    const { setShowModal, setTitleModal, setChildreModal, getUser } = props;
     const history = useHistory();
     const client = useApolloClient();
     const { logout } = useAuth();
@@ -26,7 +26,12 @@ export default function SettingsForm(props) {
 
     const onChangeEmail = () => {
         setTitleModal("Cambia tu email asociado");
-        setChildreModal(<EmailForm setShowModal={setShowModal} />);
+        setChildreModal(
+            <EmailForm
+                setShowModal={setShowModal}
+                currentEmail={getUser.email}
+            />
+        );
     };
 
     return (
