@@ -2,10 +2,14 @@ import React from "react";
 import "./EmailForm.scss";
 import { Form, Button } from "semantic-ui-react";
 import { useFormik } from "formik";
+import { useMutation } from "@apollo/client";
+import { UPDATE_USER } from "../../../gql/user";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 
 export default function EmailForm(props) {
     const { setShowModal, currentEmail } = props;
+    const [updateUser] = useMutation(UPDATE_USER);
 
     const formik = useFormik({
         initialValues: {
@@ -15,8 +19,20 @@ export default function EmailForm(props) {
         validationSchema: Yup.object({
             newEmail: Yup.string().email().required(),
         }),
-        onSubmit: (FormData) => {
-            console.log(FormData);
+        onSubmit: async (FormData) => {
+            try {
+                await updateUser({
+                    variables: {
+                        input: {
+                            email: FormData["newEmail"],
+                        },
+                    },
+                });
+                toast.success("Tu email ha sido cambiado!");
+                setShowModal(false);
+            } catch (error) {
+                toast.error("Error al actualizar el email.");
+            }
         },
     });
     return (
