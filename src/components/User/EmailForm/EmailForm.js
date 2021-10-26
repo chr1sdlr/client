@@ -8,7 +8,7 @@ import * as Yup from "yup";
 import { toast } from "react-toastify";
 
 export default function EmailForm(props) {
-    const { setShowModal, currentEmail } = props;
+    const { setShowModal, currentEmail, refetch } = props;
     const [updateUser] = useMutation(UPDATE_USER);
 
     const formik = useFormik({
@@ -28,6 +28,7 @@ export default function EmailForm(props) {
                         },
                     },
                 });
+                refetch();
                 toast.success("Tu email ha sido cambiado!");
                 setShowModal(false);
             } catch (error) {
