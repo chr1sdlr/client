@@ -37,6 +37,16 @@ export const GET_USER = gql`
     }
 `;
 
+export const SEARCH_USERS = gql`
+    query searchUser($search: String) {
+        searchUser(search: $search) {
+            name
+            username
+            avatar
+        }
+    }
+`;
+
 export const UPDATE_AVATAR = gql`
     mutation updateAvatar($file: Upload) {
         updateAvatar(file: $file) {

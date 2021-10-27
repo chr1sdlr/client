@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
 import "./Header.scss";
 import { Container, Grid, Image } from "semantic-ui-react";
 import Logo from "../../assets/png/WorkBook.png";
 import { Link } from "react-router-dom";
 import RightHeader from "./RightHeader";
+import Search from "./Search";
 
 export default function Header() {
     return (
@@ -13,10 +14,10 @@ export default function Header() {
                     <Grid.Column width={3} className="header__logo">
                         <Link to="/">
                             <Image src={Logo} alt="WorkBook" />
-                        </Link> 
+                        </Link>
                     </Grid.Column>
                     <Grid.Column width={10}>
-                        <p>Buscador</p>
+                        <Search />
                     </Grid.Column>
                     <Grid.Column width={3}>
                         <RightHeader />
@@ -24,5 +25,5 @@ export default function Header() {
                 </Grid>
             </Container>
         </div>
-    )
+    );
 }
