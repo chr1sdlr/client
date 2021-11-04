@@ -14,8 +14,6 @@ export default function SearchUser() {
         variables: { search },
     });
 
-    console.log(results);
-
     useEffect(() => {
         if (size(data?.searchUser) > 0) {
             const users = [];

@@ -9,6 +9,7 @@ import HeaderProfile from "./HeaderProfile";
 import SettingsForm from "../SettingsForm";
 import UserNotFound from "../../UserNotFound";
 import ModalBasic from "../../Modal/ModalBasic";
+import Followers from "./Followers";
 import AvatarForm from "../AvatarForm";
 
 export default function Profile(props) {
@@ -70,7 +71,7 @@ export default function Profile(props) {
                         auth={auth}
                         handlerModal={handlerModal}
                     />
-                    <div>Followers</div>
+                    <Followers username={username} />
                     <div className="others">
                         <p className="name">
                             <i>
