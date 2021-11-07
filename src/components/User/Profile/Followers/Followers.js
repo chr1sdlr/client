@@ -4,10 +4,11 @@ import { useQuery } from "@apollo/client";
 import { GET_FOLLOWERS, GET_FOLLOWEDS } from "../../../../gql/follower";
 import ModalBasic from "../../../Modal/ModalBasic";
 import ListUsers from "../../ListUsers";
+import { Icon } from "semantic-ui-react";
 import "./Followers.scss";
 
 export default function Followers(props) {
-    const { username } = props;
+    const { username, allPublications } = props;
     const [showModal, setShowModal] = useState(false);
     const [titleModal, setTitleModal] = useState("");
     const [childrenModal, setChildrenModal] = useState(null);
@@ -77,12 +78,15 @@ export default function Followers(props) {
         <>
             <div className="followers">
                 <p>
-                    <span>**</span> publicaciones.
+                    <Icon name="edit" className="followers__icon" />
+                    <span>{allPublications}</span> publicaciones.
                 </p>
                 <p className="link" onClick={openFollowers}>
+                    <Icon name="spy" className="followers__icon" />
                     <span>{size(getFollowers)}</span> seguidores.
                 </p>
                 <p className="link" onClick={openFolloweds}>
+                    <Icon name="group" className="followers__icon" />
                     <span>{size(getFolloweds)}</span> seguidos.
                 </p>
             </div>

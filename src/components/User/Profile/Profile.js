@@ -13,7 +13,7 @@ import Followers from "./Followers";
 import AvatarForm from "../AvatarForm";
 
 export default function Profile(props) {
-    const { username } = props;
+    const { username, allPublications } = props;
     const [showModal, setShowModal] = useState(false);
     const [titleModal, setTitleModal] = useState("");
     const [childreModal, setChildreModal] = useState(null);
@@ -71,7 +71,10 @@ export default function Profile(props) {
                         auth={auth}
                         handlerModal={handlerModal}
                     />
-                    <Followers username={username} />
+                    <Followers
+                        username={username}
+                        allPublications={allPublications}
+                    />
                     <div className="others">
                         <p className="name">
                             <i>
