@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { size } from "lodash";
 import { useQuery } from "@apollo/client";
-import { GET_FOLLOWERS } from "../../../../gql/follower";
+import { GET_FOLLOWERS, GET_FOLLOWEDS } from "../../../../gql/follower";
 import ModalBasic from "../../../Modal/ModalBasic";
 import ListUsers from "../../ListUsers";
 import "./Followers.scss";
@@ -13,12 +13,25 @@ export default function Followers(props) {
     const [childrenModal, setChildrenModal] = useState(null);
 
     // Para crear un alias de la variable que se va a devolver basta con ponerle : nombre_alias
+    // Esta peticion es para obtener las personas que nos siguen
     const {
         data: dataFollowers,
         loading: loadingFollowers,
         startPolling: startPollingFollowers,
         stopPolling: stopPollingFollowers,
     } = useQuery(GET_FOLLOWERS, {
+        variables: {
+            username,
+        },
+    });
+
+    // Esta peticion es para obtener las personas que seguimos
+    const {
+        data: dataFolloweds,
+        loading: loadingFolloweds,
+        startPolling: startPollingFolloweds,
+        stopPolling: stopPollingFolloweds,
+    } = useQuery(GET_FOLLOWEDS, {
         variables: {
             username,
         },
@@ -32,28 +45,45 @@ export default function Followers(props) {
         };
     }, [startPollingFollowers, stopPollingFollowers]);
 
+    // Este useEffect recarga la pagina en cache para ver que usuarios seguimos
+    useEffect(() => {
+        startPollingFolloweds(1000);
+        return () => {
+            stopPollingFolloweds();
+        };
+    }, [startPollingFolloweds, stopPollingFolloweds]);
+
     const openFollowers = () => {
-        setTitleModal("Seguidores");
+        setTitleModal("Mis seguidores");
         setChildrenModal(
             <ListUsers users={getFollowers} setShowModal={setShowModal} />
         );
         setShowModal(true);
     };
 
-    if (loadingFollowers) return null;
+    const openFolloweds = () => {
+        setTitleModal("Personas a quien sigo");
+        setChildrenModal(
+            <ListUsers users={getFolloweds} setShowModal={setShowModal} />
+        );
+        setShowModal(true);
+    };
+
+    if (loadingFollowers || loadingFolloweds) return null;
     const { getFollowers } = dataFollowers;
+    const { getFolloweds } = dataFolloweds;
 
     return (
         <>
             <div className="followers">
                 <p>
-                    <span>**</span> publicaciones
+                    <span>**</span> publicaciones.
                 </p>
                 <p className="link" onClick={openFollowers}>
-                    <span>{size(getFollowers)}</span> seguidores
+                    <span>{size(getFollowers)}</span> seguidores.
                 </p>
-                <p className="link">
-                    <span>**</span> seguidos
+                <p className="link" onClick={openFolloweds}>
+                    <span>{size(getFolloweds)}</span> seguidos.
                 </p>
             </div>
             <ModalBasic
