@@ -33,7 +33,7 @@ export default function User() {
     return (
         <>
             <Profile username={username} allPublications={size(getUserPosts)} />
-            <Posts getUserPosts={getUserPosts} />
+            <Posts username={username} getUserPosts={getUserPosts} />
         </>
     );
 }

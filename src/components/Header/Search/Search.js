@@ -21,6 +21,7 @@ export default function SearchUser() {
                 users.push({
                     key: index,
                     title: user.name,
+                    subtitle: user.surname,
                     username: user.username,
                     avatar: user.avatar,
                 });
@@ -64,7 +65,9 @@ function ResultSearch(props) {
         <Link className="search-users__item" to={`/${data.username}`}>
             <Image src={data.avatar || ImageNoFound} />
             <div>
-                <p>{data.title}</p>
+                <p>
+                    {data.title} {data.subtitle}
+                </p>
                 <p>{data.username}</p>
             </div>
         </Link>

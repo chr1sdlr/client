@@ -41,6 +41,7 @@ export const SEARCH_USERS = gql`
     query searchUser($search: String) {
         searchUser(search: $search) {
             name
+            surname
             username
             avatar
         }

@@ -12,6 +12,7 @@ export default function ModalPost(props) {
     const [isLoading, setIsLoading] = useState(false);
     const [post] = useMutation(POST);
 
+    // eslint-disable-next-line
     const onDrop = useCallback((acceptedFile) => {
         const file = acceptedFile[0];
         setFileUpload({
