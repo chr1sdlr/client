@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_USER } from "../../../gql/user";
 import useAuth from "../../../hooks/useAuth";
-import ModalPost from "../../Modal/ModalPost";
+import ModalPostUpload from "../../Modal/ModalPostUpload";
 import imageNotFound from "../../../assets/png/avatar.png";
 
 export default function RightHeader() {
@@ -35,7 +35,7 @@ export default function RightHeader() {
                     />
                 </Link>
             </div>
-            <ModalPost show={showModal} setShow={setShowModal} />
+            <ModalPostUpload show={showModal} setShow={setShowModal} />
         </>
     );
 }

@@ -1,103 +1,29 @@
-import React, { useCallback, useState } from "react";
-import { Modal, Icon, Button, Dimmer, Loader } from "semantic-ui-react";
-import { useDropzone } from "react-dropzone";
-import { POST } from "../../../gql/post";
-import { useMutation } from "@apollo/client";
-import { toast } from "react-toastify";
+import React from "react";
+import { Modal, Grid } from "semantic-ui-react";
 import "./ModalPost.scss";
+import CommentForm from "./CommentForm";
 
 export default function ModalPost(props) {
-    const { show, setShow } = props;
-    const [fileUpload, setFileUpload] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [post] = useMutation(POST);
-
-    // eslint-disable-next-line
-    const onDrop = useCallback((acceptedFile) => {
-        const file = acceptedFile[0];
-        setFileUpload({
-            type: "image",
-            file,
-            preview: URL.createObjectURL(file),
-        });
-    });
-
-    const { getRootProps, getInputProps } = useDropzone({
-        accept: "image/jpeg, image/png",
-        noKeyboard: true,
-        multiple: false,
-        onDrop,
-    });
+    const { show, setShow, post } = props;
 
     const onClose = () => {
-        setIsLoading(false);
-        setFileUpload(null);
         setShow(false);
     };
 
-    const onPublish = async () => {
-        try {
-            setIsLoading(true);
-            const res = await post({
-                variables: {
-                    file: fileUpload.file,
-                },
-            });
-
-            const { data } = res;
-
-            if (!data.post.status) {
-                toast.warning("Error publicando tu foto :c");
-                isLoading(false);
-            } else {
-                toast.success("Se ha publicado tu foto ;)");
-                onClose();
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
     return (
-        <Modal
-            size="small"
-            open={show}
-            onClose={onClose}
-            className="modal-post"
-        >
-            <div
-                {...getRootProps()}
-                className="dropzone"
-                style={fileUpload && { border: 0 }}
-            >
-                {!fileUpload && (
-                    <>
-                        <Icon name="upload" />
-                        <p>
-                            Coloca aqui tu foto. Puedes arrastar la publicación.
-                        </p>
-                    </>
-                )}
-
-                <input {...getInputProps()} />
-            </div>
-            {fileUpload?.type === "image" && (
-                <div
-                    className="image"
-                    style={{ backgroundImage: `url("${fileUpload.preview}")` }}
+        <Modal className="modal-post" open={show} onClose={onClose}>
+            <Grid>
+                <Grid.Column
+                    className="modal-post__left"
+                    width={10}
+                    style={{ backgroundImage: `url("${post.file}")` }}
                 />
-            )}
-            {fileUpload && (
-                <Button className="btn-upload btn-publish" onClick={onPublish}>
-                    Publicar
-                </Button>
-            )}
-            {isLoading && (
-                <Dimmer className="posting" active>
-                    <Loader />
-                    <p>Publicando tu imagen</p>
-                </Dimmer>
-            )}
+                <Grid.Column className="modal-post__right" width={6}>
+                    <div> Comentarios</div>
+                    <div>Acciones</div>
+                    <CommentForm post={post} />
+                </Grid.Column>
+            </Grid>
         </Modal>
     );
 }
