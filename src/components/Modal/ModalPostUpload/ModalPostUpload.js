@@ -81,6 +81,7 @@ export default function ModalPostUpload(props) {
 
                 <input {...getInputProps()} />
             </div>
+
             {fileUpload?.type === "image" && (
                 <div
                     className="image"
@@ -88,7 +89,11 @@ export default function ModalPostUpload(props) {
                 />
             )}
             {fileUpload && (
-                <Button className="btn-upload btn-publish" onClick={onPublish}>
+                <Button
+                    type="submit"
+                    className="btn-upload btn-publish"
+                    onClick={onPublish}
+                >
                     Publicar
                 </Button>
             )}

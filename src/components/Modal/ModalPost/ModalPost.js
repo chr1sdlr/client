@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, Grid } from "semantic-ui-react";
 import "./ModalPost.scss";
+import PostComments from "./PostComments";
 import CommentForm from "./CommentForm";
 
 export default function ModalPost(props) {
@@ -19,7 +20,7 @@ export default function ModalPost(props) {
                     style={{ backgroundImage: `url("${post.file}")` }}
                 />
                 <Grid.Column className="modal-post__right" width={6}>
-                    <div> Comentarios</div>
+                    <PostComments post={post} />
                     <div>Acciones</div>
                     <CommentForm post={post} />
                 </Grid.Column>

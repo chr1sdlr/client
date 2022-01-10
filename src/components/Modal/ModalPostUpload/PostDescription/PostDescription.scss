@@ -1,0 +1,11 @@
+@import "../../../../scss/index.scss";
+
+.modal-post-description-upload {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+
+    .btn-update-post-description {
+        color: green;
+    }
+}
