@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Image } from "semantic-ui-react";
 import { map } from "lodash";
 import { Link } from "react-router-dom";
@@ -10,18 +10,27 @@ import "./PostComments.scss";
 export default function PostComments(props) {
     const { post } = props;
 
-    const { data, loading } = useQuery(GET_POST_COMMENTS, {
-        variables: {
-            idPublication: post.id,
-        },
-    });
+    const { data, loading, startPolling, stopPolling } = useQuery(
+        GET_POST_COMMENTS,
+        {
+            variables: {
+                idPublication: post.id,
+            },
+        }
+    );
+
+    useEffect(() => {
+        startPolling(1000);
+        return () => {
+            stopPolling();
+        };
+    }, [startPolling, stopPolling]);
 
     if (loading) {
         return null;
     }
 
     const { getPostComments } = data;
-    console.log(getPostComments);
 
     return (
         <div className="post-comments">
